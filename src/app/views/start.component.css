@@ -1,0 +1,17 @@
+.start-choice {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  width: 20vw;
+  margin: auto;
+  padding-top: 10vh;
+}
+
+.start-choice-button {
+  flex: 1;
+}
+
+h4 {
+  display: inline-block;
+  padding-left: 45%;
+}

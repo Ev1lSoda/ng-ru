@@ -1,0 +1,36 @@
+<div class="page-content">
+
+  <div class="global-navigation">
+    <button [routerLink]="['']" class="global-navigation-button">На главную</button>
+    <button class="global-navigation-button">Добавить шов</button>
+    <button disabled class="global-navigation-button">Рассчитать</button>
+  </div>
+
+  <h4>Выбор ДКЗ</h4>
+
+  <div class="zone-pick">
+    <div (click)="pickHermetic(1)" class="zone-dkz-button"> &#8544;</div>
+    <div (click)="pickHermetic(2)" class="zone-dkz-button"> &#8545;</div>
+    <div (click)="pickHermetic(3)" class="zone-dkz-button"> &#8546;</div>
+    <div (click)="pickHermetic(4)" class="zone-dkz-button"> &#8547;</div>
+    <div (click)="pickHermetic(5)" class="zone-dkz-button"> &#8548;</div>
+  </div>
+
+  <h4 *ngIf="singleHermeticValue || oneHermeticValue">Выбор герметика</h4>
+
+  <div class="hermetic-pick" *ngIf="singleHermeticValue || oneHermeticValue">
+    <div *ngIf="!oneHermeticValue"
+      class="hermetic-pick-button">
+      {{singleHermeticValue}}
+    </div>
+    <div *ngIf="oneHermeticValue"
+         class="hermetic-pick-button">
+      {{oneHermeticValue}}
+    </div>
+    <div *ngIf="twoHermeticValue"
+         class="hermetic-pick-button">
+      {{twoHermeticValue}}
+    </div>
+  </div>
+
+</div>
