@@ -132,6 +132,16 @@ input[type=number] {
   background-color: green;
   color: snow;
 }
+.edit-buttons {
+  margin: 1em;
+  gap: 1em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  align-content: center;
+}
 /* inputs */
 
 /* inputs */

@@ -32,6 +32,10 @@ export class CalcStateService {
     this.seamContainer.inputs[updSeamIndex] = seamData;
     this.seamContainer.results[updSeamIndex] = seamResults;
   }
+  delSeams(delSeamIndex: number): void {
+    this.seamContainer.inputs.splice(delSeamIndex, 1);
+    this.seamContainer.results.splice(delSeamIndex, 1);
+  }
 
   // getStones(): AllSeamInput {
   //   return this.stoneContainer;

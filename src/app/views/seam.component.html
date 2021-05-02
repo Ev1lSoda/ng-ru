@@ -2,7 +2,7 @@
 
   <div class="global-navigation">
     <button [routerLink]="['']" class="global-navigation-button">На главную</button>
-    <button [disabled]="(this.wrongWidth || this.wrongLength || this.wrongCastDepth || calcInfo.den < 0 || calcInfo.seamLength < 0 || calcInfo.seamWidth < 0 || calcInfo.seamCastDepth < 0)" class="global-navigation-button" (click)="onSaveSeam()">Добавить новый шов</button>
+    <button [disabled]="chkBtnDisabled()" class="global-navigation-button" (click)="onSaveSeam()">Добавить новый шов</button>
     <button disabled class="global-navigation-button">Рассчитать</button>
   </div>
 
@@ -130,6 +130,14 @@
         </div>
 
       </label>
+
+      <ng-container *ngIf="showEditButton">
+        <div class="edit-buttons">
+          <button [disabled]="chkBtnDisabled()" (click)="onUpdate()">Обновить</button>
+          <button [disabled]="chkBtnDisabled()" (click)="onDelete()">Удалить</button>
+          <button (click)="onClear()">Очистить</button>
+        </div>
+      </ng-container>
 
 
     </div>
