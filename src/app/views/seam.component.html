@@ -6,31 +6,142 @@
     <button disabled class="global-navigation-button">Рассчитать</button>
   </div>
 
+
+    <ng-container *ngIf="seamTotal">
+      <fieldset>
+        <legend>Созданные Швы: {{seamTotal}}</legend>
+        <option *ngFor="let seam of seamList">
+          {{seam | json}}
+        </option>
+      </fieldset>
+    </ng-container>
+
+
   <h4>Выбор ДКЗ</h4>
 
   <div class="zone-pick">
-    <div (click)="pickHermetic(1)" class="zone-dkz-button"> &#8544;</div>
-    <div (click)="pickHermetic(2)" class="zone-dkz-button"> &#8545;</div>
-    <div (click)="pickHermetic(3)" class="zone-dkz-button"> &#8546;</div>
-    <div (click)="pickHermetic(4)" class="zone-dkz-button"> &#8547;</div>
-    <div (click)="pickHermetic(5)" class="zone-dkz-button"> &#8548;</div>
+    <div (click)="pickHermetic(0)" class="zone-dkz-button"> &#8544;</div>
+    <div (click)="pickHermetic(1)" class="zone-dkz-button"> &#8545;</div>
+    <div (click)="pickHermetic(2)" class="zone-dkz-button"> &#8546;</div>
+    <div (click)="pickHermetic(3)" class="zone-dkz-button"> &#8547;</div>
+    <div (click)="pickHermetic(4)" class="zone-dkz-button"> &#8548;</div>
   </div>
 
-  <h4 *ngIf="singleHermeticValue || oneHermeticValue">Выбор герметика</h4>
+  <ng-container *ngIf="curHermetic.single || curHermetic.one">
 
-  <div class="hermetic-pick" *ngIf="singleHermeticValue || oneHermeticValue">
-    <div *ngIf="!oneHermeticValue"
-      class="hermetic-pick-button">
-      {{singleHermeticValue}}
+    <h4>Выбор герметика</h4>
+
+    <div class="hermetic-pick">
+      <div *ngIf="!curHermetic.one" class="hermetic-pick-button" (click)="getDen(0)">
+        {{curHermetic.single}}
+      </div>
+      <div *ngIf="curHermetic.one" class="hermetic-pick-button" (click)="getDen(0)">
+        {{curHermetic.one}}
+      </div>
+      <div *ngIf="curHermetic.two" class="hermetic-pick-button" (click)="getDen(1)">
+        {{curHermetic.two}}
+      </div>
     </div>
-    <div *ngIf="oneHermeticValue"
-         class="hermetic-pick-button">
-      {{oneHermeticValue}}
+
+    <div class="user-inputs">
+
+
+      <label for="sLength">
+
+        <div class="user-inputs-row">
+
+          L<sub>ш</sub>
+
+          <input
+            placeholder="Длина шва"
+            [ngClass]="wrongLength ? 'user-input-warning' : ''"
+            (input)="getInputLength()"
+            id="sLength"
+            type="number" [(ngModel)]="seamLength"
+            name="seamLength"> (м)
+
+          <span [ngClass]="wrongLength ? 'user-outer-warning' : 'user-outer-nowarning'">&nbsp;!!!</span>
+<!--          <span [ngStyle]="{'visibility' : wrongLength ? 'visible' : 'hidden'}" style="color: red;">&nbsp;!!!</span>-->
+
+        </div>
+
+      </label>
+
+
+      <label for="sWidth">
+
+        <div class="user-inputs-row">
+
+          B<sub>ш</sub>
+
+          <input
+            placeholder="Ширина шва"
+            [ngClass]="wrongWidth ? 'user-input-warning' : ''"
+            (input)="getInputWidth()"
+            id="sWidth"
+            type="number" [(ngModel)]="seamWidth"
+            name="seamWidth"> (мм)
+
+          <span [ngClass]="wrongWidth ? 'user-outer-warning' : 'user-outer-nowarning'">&nbsp;!!!</span>
+
+        </div>
+
+      </label>
+
+
+      <label for="sDepth">
+
+        <div class="user-inputs-row">
+
+          H<sub>ш</sub>
+
+          <input
+            placeholder="Глубина разделки шва"
+            [ngClass]="wrongDepth ? 'user-input-warning' : ''"
+            (input)="getInputDepth()"
+            id="sDepth"
+            type="number" [(ngModel)]="seamDepth"
+            name="seamDepth"> (мм)
+
+          <span [ngClass]="wrongDepth ? 'user-outer-warning' : 'user-outer-nowarning'">&nbsp;!!!</span>
+
+        </div>
+
+      </label>
+
+
+      <label for="sCastDepth">
+
+        <div class="user-inputs-row">
+
+          H<sub>зш</sub>
+
+          <input
+            placeholder="Глубина заливки камеры шва"
+            [ngClass]="wrongCastDepth ? 'user-input-warning' : ''"
+            (input)="getInputCastDepth()"
+            id="sCastDepth"
+            type="number" [(ngModel)]="seamCastDepth"
+            name="seamCastDepth"> (мм)
+
+          <span [ngClass]="wrongCastDepth ? 'user-outer-warning' : 'user-outer-nowarning'">&nbsp;!!!</span>
+
+        </div>
+
+      </label>
+
+
     </div>
-    <div *ngIf="twoHermeticValue"
-         class="hermetic-pick-button">
-      {{twoHermeticValue}}
-    </div>
-  </div>
+
+
+
+
+  </ng-container>
+
+<!--  <ng-container *ngIf="(bContainer | async)?.seam as seams">-->
+<!--    <em>-->
+<!--      {{seams | json}}-->
+<!--    </em>-->
+<!--  </ng-container>-->
 
 </div>
