@@ -7,6 +7,7 @@ import { StartComponent } from './views/start.component';
 import { SeamComponent } from './views/seam.component';
 import { StoneComponent } from './views/stone.component';
 import {FormsModule} from "@angular/forms";
+import { RSeamComponent } from './views/r-seam.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import {FormsModule} from "@angular/forms";
     AppComponent,
     StartComponent,
     SeamComponent,
-    StoneComponent
+    StoneComponent,
+    RSeamComponent
   ],
   imports: [
     BrowserModule,

@@ -180,6 +180,7 @@ export class SeamComponent implements OnInit {
     const curP = this.hermetic[this.curDkz].den[this.indexOfCurHer];
 
     const newSeamResults = {
+      seamWD: Calculations.getSeamWidthDimensions(this.seamWidth),
       volume: curVolume,
       mass: Calculations.getMassOfHer({V: curVolume, p: curP}),
       gMass: Calculations.getMassOfGround({L: newSeam.seamLength})
@@ -245,6 +246,7 @@ export class SeamComponent implements OnInit {
     const curP = this.hermetic[this.curDkz].den[this.indexOfCurHer];
 
     const newSeamResults = {
+      seamWD: Calculations.getSeamWidthDimensions(this.seamWidth),
       volume: curVolume,
       mass: Calculations.getMassOfHer({V: curVolume, p: curP}),
       gMass: Calculations.getMassOfGround({L: newSeam.seamLength})

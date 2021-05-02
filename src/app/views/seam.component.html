@@ -3,7 +3,7 @@
   <div class="global-navigation">
     <button [routerLink]="['']" class="global-navigation-button">На главную</button>
     <button [disabled]="chkBtnDisabled()" class="global-navigation-button" (click)="onSaveSeam()">Добавить новый шов</button>
-    <button disabled class="global-navigation-button">Рассчитать</button>
+    <button [disabled]="!seamList.length" class="global-navigation-button"  [routerLink]="['/rSeam']">Рассчитать</button>
   </div>
 
 
