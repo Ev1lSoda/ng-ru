@@ -204,6 +204,40 @@ export class SeamComponent implements OnInit {
 
   getSelectedSeam(seamID: number): void {
     console.log('seamList[seamID]: ', this.seamList[seamID]);
+
+  this.wrongLength = false;
+  this.wrongWidth = false;
+  this.wrongDepth = false;
+  this.wrongCastDepth = false;
+
+
+  this.indexOfCurHer = this.seamList[seamID]['her'];
+  this.curDkz = this.seamList[seamID]['dkz'];
+  this.curSeamID = seamID;
+  this.seamLength = this.seamList[seamID]['seamLength'];
+  this.seamWidth = this.seamList[seamID]['seamWidth'];
+  this.seamDepth = this.seamList[seamID]['seamDepth'];
+  this.seamCastDepth = this.seamList[seamID]['seamCastDepth'];
+
+
+    if (this.hermetic[this.curDkz]['her'].length === 2) {
+      this.curHermetic.single = '';
+      this.curHermetic.one = this.hermetic[this.curDkz]['her'][0];
+      this.curHermetic.two = this.hermetic[this.curDkz]['her'][1];
+      // curContainer.seam.inputs[1]['dkz'] = dkz;
+
+    } else {
+      this.curHermetic.one = '';
+      this.curHermetic.two = '';
+      this.curHermetic.single = this.hermetic[this.curDkz]['her'][0];
+    }
+
+  this.calcInfo = {
+      den: this.hermetic[this.curDkz].den[this.indexOfCurHer],
+      seamLength: this.seamLength,
+      seamWidth: this.seamWidth,
+      seamCastDepth: this.seamCastDepth
+    }
   }
 
 // { "dkz": 2, "her": 1, "den": 1, "seamLength": 12, "seamWidth": 23, "seamDepth": 43, "seamCastDepth": 13 }{ "dkz": 0, "her": 0, "den": 0, "seamLength": 11, "seamWidth": 22, "seamDepth": 33, "seamCastDepth": 3 }

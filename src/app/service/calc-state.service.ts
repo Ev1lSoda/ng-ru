@@ -28,6 +28,10 @@ export class CalcStateService {
     this.seamContainer.inputs.push(seamData);
     this.seamContainer.results.push(seamResults);
   }
+  updSeams(updSeamIndex: number, seamData: SeamInput, seamResults: any): void {
+    this.seamContainer.inputs[updSeamIndex] = seamData;
+    this.seamContainer.results[updSeamIndex] = seamResults;
+  }
 
   // getStones(): AllSeamInput {
   //   return this.stoneContainer;
