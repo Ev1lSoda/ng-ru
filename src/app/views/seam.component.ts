@@ -16,11 +16,11 @@ export class SeamComponent implements OnInit {
     two: ''
   };
 
-  private calcInfo = {
-    den: 1,
-    seamLength: 1,
-    seamWidth: 1,
-    seamCastDepth: 1,
+  public calcInfo = {
+    den: -1,
+    seamLength: -1,
+    seamWidth: -1,
+    seamCastDepth: -1,
   }
   // seamLength?:    number;
   // seamWidth?:     number;
@@ -50,7 +50,7 @@ export class SeamComponent implements OnInit {
     }
   ];
 
-  public seamTotal = 0; // total number of seams defined
+  // public seamTotal = 0; // total number of seams defined
   public seamList = []; // list of seams defined: button list
 
 
@@ -60,24 +60,29 @@ export class SeamComponent implements OnInit {
   public wrongCastDepth = false;
 
 
+  public indexOfCurHer = -1;
   public curDkz: any;
+  public curSeamID = -1;
   public seamLength: any;
   public seamWidth: any;
   public seamDepth: any;
   public seamCastDepth: any;
-  // seamLength?:    number;
-  // seamWidth?:     number;
-  // seamDepth?:     number;
-  // seamCastDepth?: number;
 
   constructor(private calcService: CalcStateService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('curCONTlen: ', this.calcService.getSeams().inputs.length);
+    this.curSeamID = (this.calcService.getSeams().inputs.length + 1);
+    this.seamList = this.calcService.getSeams().inputs;
+
+  }
 
   pickHermetic(dkz: number): void {
 
     if(dkz > -1) {
       this.curDkz = dkz;
+      this.indexOfCurHer = -1;
+      this.calcInfo.den = -1;
       // let curContainer = this.calcService.bSubj.getValue();
 
       if (this.hermetic[dkz]['her'].length === 2) {
@@ -95,6 +100,7 @@ export class SeamComponent implements OnInit {
   }
 
   getDen(denIndex: number): void {
+    this.indexOfCurHer = denIndex;
     this.calcInfo.den = this.hermetic[this.curDkz].den[denIndex];
     console.log(".calcInfo.den: ", this.calcInfo.den)
   }
@@ -109,7 +115,7 @@ export class SeamComponent implements OnInit {
   }
 
   getInputWidth(): void {
-    this.calcInfo.seamCastDepth = 1;
+    this.calcInfo.seamCastDepth = -1;
     this.seamCastDepth = null;
     this.seamDepth = null;
     this.calcInfo.seamWidth = this.seamWidth;
@@ -161,5 +167,45 @@ export class SeamComponent implements OnInit {
       this.wrongDepth = false;
     }
   }
+
+  onSaveSeam(): void {
+  const newSeam = {
+    dkz:           this.curDkz, //index
+    her:           this.indexOfCurHer, //index
+    den:           this.indexOfCurHer, //index
+    seamLength:    this.seamLength,
+    seamWidth:     this.seamWidth,
+    seamDepth:     this.seamDepth,
+    seamCastDepth: this.seamCastDepth
+  };
+
+  const curVolume = Calculations.getVolumeOfHer({L: this.seamLength,B: this.seamWidth,H: this.seamCastDepth});
+  const curP = this.hermetic[this.curDkz].den[this.indexOfCurHer];
+
+  const newSeamResults = {
+    volume: curVolume,
+    mass: Calculations.getMassOfHer({V: curVolume, p: curP}),
+    gMass: Calculations.getMassOfGround({L: newSeam.seamLength})
+
+  }
+  this.calcService.saveSeams(newSeam, newSeamResults);
+  this.seamList = this.calcService.getSeams().inputs;
+  console.log('seamList: ', this.seamList);
+    // const id = (this.calcService.getSeams().inputs.length + 1)
+  // public indexOfCurHer = -1;
+  // public curDkz: any;
+  // public seamLength: any;
+  // public seamWidth: any;
+  // public seamDepth: any;
+  // public seamCastDepth: any;
+
+
+  }
+
+  getSelectedSeam(seamID: number): void {
+    console.log('seamList[seamID]: ', this.seamList[seamID]);
+  }
+
+// { "dkz": 2, "her": 1, "den": 1, "seamLength": 12, "seamWidth": 23, "seamDepth": 43, "seamCastDepth": 13 }{ "dkz": 0, "her": 0, "den": 0, "seamLength": 11, "seamWidth": 22, "seamDepth": 33, "seamCastDepth": 3 }
 
 }

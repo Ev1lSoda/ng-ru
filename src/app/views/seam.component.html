@@ -2,17 +2,18 @@
 
   <div class="global-navigation">
     <button [routerLink]="['']" class="global-navigation-button">На главную</button>
-    <button class="global-navigation-button">Добавить шов</button>
+    <button [disabled]="(this.wrongWidth || this.wrongLength || this.wrongCastDepth || calcInfo.den < 0 || calcInfo.seamLength < 0 || calcInfo.seamWidth < 0 || calcInfo.seamCastDepth < 0)" class="global-navigation-button" (click)="onSaveSeam()">Сохранить шов</button>
     <button disabled class="global-navigation-button">Рассчитать</button>
   </div>
 
 
-    <ng-container *ngIf="seamTotal">
+    <ng-container *ngIf="seamList.length">
       <fieldset>
-        <legend>Созданные Швы: {{seamTotal}}</legend>
-        <option *ngFor="let seam of seamList">
-          {{seam | json}}
-        </option>
+        <legend>Созданные Швы: {{seamList.length}}</legend>
+        <button *ngFor="let seam of seamList; let i = index;" (click)="getSelectedSeam(i)">
+          Шов № {{i+1}}
+<!--          {{seam | json}}-->
+        </button>
       </fieldset>
     </ng-container>
 
@@ -20,11 +21,11 @@
   <h4>Выбор ДКЗ</h4>
 
   <div class="zone-pick">
-    <div (click)="pickHermetic(0)" class="zone-dkz-button"> &#8544;</div>
-    <div (click)="pickHermetic(1)" class="zone-dkz-button"> &#8545;</div>
-    <div (click)="pickHermetic(2)" class="zone-dkz-button"> &#8546;</div>
-    <div (click)="pickHermetic(3)" class="zone-dkz-button"> &#8547;</div>
-    <div (click)="pickHermetic(4)" class="zone-dkz-button"> &#8548;</div>
+    <div [ngClass]="curDkz === 0 ? 'dkz-selected-btn' : 'zone-dkz-button'" (click)="pickHermetic(0)"> &#8544;</div>
+    <div (click)="pickHermetic(1)" [ngClass]="curDkz === 1 ? 'dkz-selected-btn' : 'zone-dkz-button'"> &#8545;</div>
+    <div (click)="pickHermetic(2)" [ngClass]="curDkz === 2 ? 'dkz-selected-btn' : 'zone-dkz-button'"> &#8546;</div>
+    <div (click)="pickHermetic(3)" [ngClass]="curDkz === 3 ? 'dkz-selected-btn' : 'zone-dkz-button'"> &#8547;</div>
+    <div (click)="pickHermetic(4)" [ngClass]="curDkz === 4 ? 'dkz-selected-btn' : 'zone-dkz-button'"> &#8548;</div>
   </div>
 
   <ng-container *ngIf="curHermetic.single || curHermetic.one">
@@ -32,13 +33,13 @@
     <h4>Выбор герметика</h4>
 
     <div class="hermetic-pick">
-      <div *ngIf="!curHermetic.one" class="hermetic-pick-button" (click)="getDen(0)">
+      <div *ngIf="!curHermetic.one" [ngClass]="indexOfCurHer === 0 ? 'hermetic-selected-button' : 'hermetic-pick-button'" (click)="getDen(0)">
         {{curHermetic.single}}
       </div>
-      <div *ngIf="curHermetic.one" class="hermetic-pick-button" (click)="getDen(0)">
+      <div *ngIf="curHermetic.one" [ngClass]="indexOfCurHer === 0 ? 'hermetic-selected-button' : 'hermetic-pick-button'" (click)="getDen(0)">
         {{curHermetic.one}}
       </div>
-      <div *ngIf="curHermetic.two" class="hermetic-pick-button" (click)="getDen(1)">
+      <div *ngIf="curHermetic.two" [ngClass]="indexOfCurHer === 1 ? 'hermetic-selected-button' : 'hermetic-pick-button'" (click)="getDen(1)">
         {{curHermetic.two}}
       </div>
     </div>

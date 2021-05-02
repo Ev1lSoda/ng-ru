@@ -22,4 +22,16 @@ export class Calculations {
         return 0;
       }
   }
+
+  static getVolumeOfHer(inputData: any): number {
+    return ((inputData.L*100) * (inputData.B/10) * (inputData.H/10))
+  }
+
+  static getMassOfHer(inputData: any): number {
+    return ((inputData.V * inputData.p)/1000)
+  }
+
+  static getMassOfGround(inputData: any): number {
+    return ((inputData.L * 65)/1000)
+  }
 }

@@ -65,6 +65,18 @@
   cursor: pointer;
   min-width: 5vw;
 }
+.hermetic-selected-button {
+  flex: 1;
+  color: snow;
+  border: thin solid darkgrey;
+  background-color: lightblue;
+  font-size: 128%;
+  font-weight: 300;
+  text-align: center;
+  border-radius: .248em;
+  cursor: pointer;
+  min-width: 5vw;
+}
 /* buttons */
 
 
@@ -106,6 +118,19 @@
 input[type=number] {
   border: 1px solid lightgray;
   margin: auto;
+}
+
+.dkz-selected-btn {
+  flex: 1;
+  border: thin solid darkgrey;
+  font-size: 128%;
+  font-weight: 300;
+  min-width: 3vw;
+  text-align: center;
+  border-radius: .248em;
+  cursor: pointer;
+  background-color: green;
+  color: snow;
 }
 /* inputs */
 

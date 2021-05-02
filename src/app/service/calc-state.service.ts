@@ -20,12 +20,13 @@ export class CalcStateService {
   constructor() {
   }
 
-  getSeams(): AllSeamInput {
+  getSeams(): any {
     return this.seamContainer;
   }
 
-  setSeams(seams: SeamInput[]): void {
-    this.seamContainer.inputs = [...seams];
+  saveSeams(seamData: SeamInput, seamResults: any): void {
+    this.seamContainer.inputs.push(seamData);
+    this.seamContainer.results.push(seamResults);
   }
 
   // getStones(): AllSeamInput {
