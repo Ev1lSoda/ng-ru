@@ -20,7 +20,7 @@ export class SeamComponent implements OnInit {
     seamLength: -1,
     seamWidth: -1,
     seamCastDepth: -1,
-  }
+  };
 
 
   private hermetic = [

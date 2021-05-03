@@ -1,1 +1,97 @@
-<p>stone works!</p>
+<div class="page-content">
+  <div class="global-navigation">
+    <button [routerLink]="['']" class="global-navigation-button">На главную</button>
+    <button  class="global-navigation-button" (click)="onSaveStoneSeam()">Добавить новый шов</button>
+    <button class="global-navigation-button">Рассчитать</button>
+  </div>
+
+  <h4>Выбор ДКЗ</h4>
+
+  <div class="zone-pick">
+    <div
+      (click)="pickMast(2)"
+      [ngClass]="curDkz === 2 ? 'dkz-selected-btn' : 'zone-dkz-button'">
+      &#8545; ДШ-85
+    </div>
+    <div
+      (click)="pickMast(3)"
+      [ngClass]="curDkz === 3 ? 'dkz-selected-btn' : 'zone-dkz-button'">
+      &#8546; ДШ-85
+    </div>
+    <div
+      (click)="pickMast(4)"
+      [ngClass]="curDkz === 4 ? 'dkz-selected-btn' : 'zone-dkz-button'">
+      &#8547; ДШ-90
+    </div>
+    <div
+      (click)="pickMast(5)"
+      [ngClass]="curDkz === 5 ? 'dkz-selected-btn' : 'zone-dkz-button'">
+      &#8548; ДШ-90
+    </div>
+  </div>
+
+  <div class="user-inputs">
+
+    <label for="sLength">
+
+      <div class="user-inputs-row">
+
+        L<sub>ш</sub>
+
+        <input
+          placeholder="Длина шва"
+          [ngClass]="wrongLength ? 'user-input-warning' : ''"
+          (input)="getInputLength()"
+          id="sLength"
+          type="number" [(ngModel)]="seamLength"
+          name="seamLength"> (м)
+
+        <span [ngClass]="wrongLength ? 'user-outer-warning' : 'user-outer-nowarning'">&nbsp;!!!</span>
+
+      </div>
+
+    </label>
+
+    <label for="sWidth">
+
+      <div class="user-inputs-row">
+
+        B<sub>ш</sub>
+
+        <input
+          placeholder="Ширина шва"
+          [ngClass]="wrongWidth ? 'user-input-warning' : ''"
+          (input)="getInputWidth()"
+          id="sWidth"
+          type="number" [(ngModel)]="seamWidth"
+          name="seamWidth"> (мм)
+
+        <span [ngClass]="wrongWidth ? 'user-outer-warning' : 'user-outer-nowarning'">&nbsp;!!!</span>
+
+      </div>
+
+    </label>
+
+    <label for="sDepth">
+
+      <div class="user-inputs-row">
+
+        H<sub>ш</sub>
+
+        <input
+          placeholder="Глубина разделки шва"
+          [ngClass]="wrongDepth ? 'user-input-warning' : ''"
+          (input)="getInputDepth()"
+          id="sDepth"
+          type="number" [(ngModel)]="seamDepth"
+          name="seamDepth"> (мм)
+
+        <span [ngClass]="wrongDepth ? 'user-outer-warning' : 'user-outer-nowarning'">&nbsp;!!!</span>
+
+      </div>
+
+    </label>
+
+  </div>
+
+</div>
