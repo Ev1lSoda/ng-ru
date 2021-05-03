@@ -1,10 +1,18 @@
 <div class="page-content">
   <div class="global-navigation">
     <button [routerLink]="['']" class="global-navigation-button">На главную</button>
-    <button class="global-navigation-button"  [routerLink]="['/seam']" >Назад</button>
+    <button class="global-navigation-button" [routerLink]="['/seam']">Назад</button>
   </div>
   <div>
-    {{seamResults | json}} <hr>
-    <b>{{results | json}}</b>
+    {{ seamResults | json }}
+    <hr />
+    <b>Герметик: {{ results['gMass'] }} </b>
+    <hr />
+
+    <b>Грунтовка полимерная: {{ results['mass'] }} </b>
+    <hr />
+    <b>Шнур уплотнительный термостойкий «Брит»: </b><br />
+    <span *ngFor="let indexOfRez of helper">Шнур Ø{{ indexOfRez }}: {{ results[indexOfRez] }} <br /></span>
+    <hr />
   </div>
 </div>
