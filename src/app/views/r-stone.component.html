@@ -1,11 +1,20 @@
 <div class="page-content">
   <div class="global-navigation">
     <button [routerLink]="['']" class="global-navigation-button">На главную</button>
-    <button class="global-navigation-button"  [routerLink]="['/stone']" >Назад</button>
+    <button class="global-navigation-button" [routerLink]="['/stone']">Назад</button>
   </div>
   <div>
-
-    {{seamResults | json}} <hr>
-<!--    <b>{{results | json}}</b>-->
+    {{ seamResults | json }}
+    <hr />
+    <b>m<sub>щ</sub><sup>10-20</sup>: {{ results['Msh1020'] }} кг </b>
+    <hr />
+    <b>m<sub>щ</sub><sup>5-10</sup>: {{ results['Msh510'] }} кг </b>
+    <hr />
+    <b>m<sub>щ</sub><sup>3-5</sup>: {{ results['Msh35'] }} кг </b>
+    <hr />
+    <b>m<sub>гр</sub>: {{ results['Mgr'] }} кг </b>
+    <hr />
+    <b>m<sub>м</sub><sup>ср</sup>: {{ results['MmCP'] }} кг </b>
+    <hr />
   </div>
 </div>

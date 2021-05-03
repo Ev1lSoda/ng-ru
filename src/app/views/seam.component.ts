@@ -260,10 +260,10 @@ export class SeamComponent implements OnInit {
     this.showEditButton = false;
   }
   onClear(): void {
-    this.wrongLength = true;
-    this.wrongWidth = true;
-    this.wrongDepth = true;
-    this.wrongCastDepth = true;
+    this.wrongLength = false;
+    this.wrongWidth = false;
+    this.wrongDepth = false;
+    this.wrongCastDepth = false;
 
     this.indexOfCurHer = -1;
     this.curDkz = null;
@@ -272,6 +272,12 @@ export class SeamComponent implements OnInit {
     this.seamWidth = null;
     this.seamDepth = null;
     this.seamCastDepth = null;
+    this.calcInfo = {
+      den: -1,
+      seamLength: -1,
+      seamWidth: -1,
+      seamCastDepth: -1,
+    };
   }
   chkBtnDisabled(): boolean {
     return this.wrongWidth || this.wrongLength || this.wrongCastDepth || this.calcInfo.den < 0 || this.calcInfo.seamLength < 0 || this.calcInfo.seamWidth < 0 || this.calcInfo.seamCastDepth < 0 ? true : false;
