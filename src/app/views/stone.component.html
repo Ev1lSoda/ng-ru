@@ -1,9 +1,19 @@
 <div class="page-content">
   <div class="global-navigation">
     <button [routerLink]="['']" class="global-navigation-button">На главную</button>
-    <button  class="global-navigation-button" (click)="onSaveStoneSeam()">Добавить новый шов</button>
-    <button class="global-navigation-button">Рассчитать</button>
+    <button [disabled]="chkBtnDisabled()" class="global-navigation-button" (click)="onSaveStoneSeam()">Добавить новый шов</button>
+    <button [disabled]="chkBtnDisabled()" class="global-navigation-button">Рассчитать</button>
   </div>
+
+  <ng-container *ngIf="seamList.length">
+    <fieldset>
+      <legend>Созданные Швы: {{seamList.length}}</legend>
+      <button *ngFor="let seam of seamList; let i = index;" (click)="getSelectedStone(i)">
+        Шов № {{i+1}}
+        <!--          {{seam | json}}-->
+      </button>
+    </fieldset>
+  </ng-container>
 
   <h4>Выбор ДКЗ</h4>
 
@@ -64,7 +74,7 @@
           (input)="getInputWidth()"
           id="sWidth"
           type="number" [(ngModel)]="seamWidth"
-          name="seamWidth"> (мм)
+          name="seamWidth"> (cм)
 
         <span [ngClass]="wrongWidth ? 'user-outer-warning' : 'user-outer-nowarning'">&nbsp;!!!</span>
 
@@ -84,13 +94,21 @@
           (input)="getInputDepth()"
           id="sDepth"
           type="number" [(ngModel)]="seamDepth"
-          name="seamDepth"> (мм)
+          name="seamDepth"> (cм)
 
         <span [ngClass]="wrongDepth ? 'user-outer-warning' : 'user-outer-nowarning'">&nbsp;!!!</span>
 
       </div>
 
     </label>
+
+    <ng-container *ngIf="showEditButton">
+      <div class="edit-buttons">
+        <button [disabled]="chkBtnDisabled()" (click)="onUpdate()">Обновить</button>
+        <button [disabled]="chkBtnDisabled()" (click)="onDelete()">Удалить</button>
+        <button (click)="onClear()">Очистить</button>
+      </div>
+    </ng-container>
 
   </div>
 

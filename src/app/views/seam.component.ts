@@ -70,7 +70,6 @@ export class SeamComponent implements OnInit {
     this.curSeamID = (this.calcService.getSeams().inputs.length + 1);
     this.seamList = this.calcService.getSeams().inputs;
     this.showEditButton = false;
-
   }
 
   pickHermetic(dkz: number): void {

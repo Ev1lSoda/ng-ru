@@ -37,8 +37,20 @@ export class CalcStateService {
     this.seamContainer.results.splice(delSeamIndex, 1);
   }
 
-  // getStones(): AllSeamInput {
-  //   return this.stoneContainer;
-  // }
+  getStones(): any {
+    return this.stoneContainer;
+  }
+  saveStones(stoneData: SeamInput, stoneResults: any): void {
+    this.stoneContainer.inputs.push(stoneData);
+    this.stoneContainer.results.push(stoneResults);
+  }
+  updStones(updStoneIndex: number, stoneData: SeamInput, stoneResults: any): void {
+    this.stoneContainer.inputs[updStoneIndex] = stoneData;
+    this.stoneContainer.results[updStoneIndex] = stoneResults;
+  }
+  delStones(delStoneIndex: number): void {
+    this.stoneContainer.inputs.splice(delStoneIndex, 1);
+    this.stoneContainer.results.splice(delStoneIndex, 1);
+  }
 
 }

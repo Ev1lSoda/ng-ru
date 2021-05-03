@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Calculations} from "../classes/calculations";
+import {CalcStateService} from "../service/calc-state.service";
 
 @Component({
   selector: 'NgRu-stone',
@@ -29,6 +30,8 @@ export class StoneComponent implements OnInit {
       dnst: 1.2
     },
   ];
+  public seamList = []; // list of seams defined: button list
+  public showEditButton = false;
 
   public calcInfo = {
     dnst: -1,
@@ -47,19 +50,42 @@ export class StoneComponent implements OnInit {
   public seamLength: any;
   public seamWidth: any;
   public seamDepth: any;
+  public curSeamID = -1;
 
-  constructor() { }
+  constructor(private calcService: CalcStateService) { }
 
   ngOnInit(): void {
+    console.log('curCONTlen: ', this.calcService.getStones().inputs.length);
+    this.curSeamID = (this.calcService.getStones().inputs.length + 1);
+    this.seamList = this.calcService.getStones().inputs;
+    this.showEditButton = false;
   }
 
   pickMast(selMastId: number): void {
     this.curDkz = selMastId;
     this.curDnst = this.dkzList[selMastId-2]['dnst'];
+    this.calcInfo.dnst = this.curDnst;
     console.log('curDnst: ', this.curDnst)
   }
 
-  onSaveStoneSeam(): void {}
+  onSaveStoneSeam(): void {
+    this.showEditButton = false;
+    const newStone = {
+      dkz: this.curDkz,
+      dnst: this.calcInfo.dnst,
+      seamLength: this.calcInfo.seamLength,
+      seamWidth: this.calcInfo.seamWidth,
+      seamDepth: this.calcInfo.seamDepth,
+      seamCastDepth: this.calcInfo.seamCastDepth,
+    };
+    const newSResults = {
+      data: 'smt'
+    };
+
+    this.calcService.saveStones(newStone, newSResults);
+    this.seamList = this.calcService.getStones().inputs;
+    console.log('seamList: ', this.seamList);
+  }
 
   getInputLength(): void {
     this.calcInfo.seamLength = this.seamLength;
@@ -92,6 +118,7 @@ export class StoneComponent implements OnInit {
   }
   //
   getInputDepth(): void {
+    this.calcInfo.seamDepth = this.seamDepth;
     const seamWidthDemension = Calculations.getSeamWidthDimensions(this.calcInfo.seamWidth);
     if(this.seamDepth <= seamWidthDemension) {
       this.wrongDepth = true;
@@ -106,6 +133,73 @@ export class StoneComponent implements OnInit {
     // } else {
     //   this.wrongCastDepth = false;
     // }
+  }
+
+  chkBtnDisabled(): boolean {
+    return (this.wrongWidth || this.wrongLength  || this.calcInfo.dnst < 0 || this.calcInfo.seamLength < 0 || this.calcInfo.seamWidth < 0 || this.calcInfo.seamCastDepth < 0) ? true : false;
+  }
+  getSelectedStone(seamID: number): void {
+    this.showEditButton = true;
+    console.log('seamList[seamID]: ', this.seamList[seamID]);
+
+    this.wrongLength = false;
+    this.wrongWidth = false;
+    this.wrongDepth = false;
+
+
+    this.curDkz = this.seamList[seamID]['dkz'];
+    this.curSeamID = seamID;
+    this.seamLength = this.seamList[seamID]['seamLength'];
+    this.seamWidth = this.seamList[seamID]['seamWidth'];
+    this.seamDepth = this.seamList[seamID]['seamDepth'];
+    this.curDnst = this.seamList[seamID]['curDnst'];
+
+    this.calcInfo = {
+      dnst: this.curDnst,
+      seamLength: this.seamLength,
+      seamWidth: this.seamWidth,
+      seamDepth: this.seamDepth,
+      seamCastDepth: this.seamList[seamID]['seamCastDepth']
+    }
+  }
+  onUpdate(): void {
+    this.showEditButton = false;
+    const newStone = {
+      dkz: this.curDkz,
+      dnst: this.calcInfo.dnst,
+      seamLength: this.calcInfo.seamLength,
+      seamWidth: this.calcInfo.seamWidth,
+      seamDepth: this.calcInfo.seamDepth,
+      seamCastDepth: this.calcInfo.seamCastDepth,
+    };
+    const newSResults = {
+      data: 'smt'
+    };
+    this.calcService.updStones(this.curSeamID, newStone, newSResults);
+    this.seamList = this.calcService.getStones().inputs;
+    console.log('seamList: ', this.seamList);
+    this.onClear();
+    this.showEditButton = false;
+
+  }
+  onDelete(): void {
+    this.calcService.delStones(this.curSeamID)
+    this.seamList = this.calcService.getStones().inputs;
+    this.onClear();
+    this.showEditButton = false;
+  }
+  onClear(): void {
+
+    this.wrongLength = true;
+    this.wrongWidth = true;
+    this.wrongDepth = true;
+
+    this.curDkz = null;
+    this.curDnst = -1;
+    this.curSeamID = -1;
+    this.seamLength = null;
+    this.seamWidth = null;
+    this.seamDepth = null;
   }
 
 }
