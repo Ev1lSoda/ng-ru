@@ -2,7 +2,7 @@
   <div class="global-navigation">
     <button [routerLink]="['']" class="global-navigation-button">На главную</button>
     <button [disabled]="chkBtnDisabled()" class="global-navigation-button" (click)="onSaveStoneSeam()">Добавить новый шов</button>
-    <button [disabled]="chkBtnDisabled()" class="global-navigation-button">Рассчитать</button>
+    <button [disabled]="!seamList.length" class="global-navigation-button"  [routerLink]="['/rStone']">Рассчитать</button>
   </div>
 
   <ng-container *ngIf="seamList.length">

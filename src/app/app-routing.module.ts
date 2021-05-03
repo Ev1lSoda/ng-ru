@@ -4,6 +4,7 @@ import {StartComponent} from "./views/start.component";
 import {SeamComponent} from "./views/seam.component";
 import {StoneComponent} from "./views/stone.component";
 import {RSeamComponent} from "./views/r-seam.component";
+import {RStoneComponent} from "./views/r-stone.component";
 
 const routes: Routes = [
   {
@@ -17,6 +18,9 @@ const routes: Routes = [
   },
   {
     path: 'rSeam', component:RSeamComponent
+  },
+  {
+    path: 'rStone', component:RStoneComponent
   },
   {
     path: '**', redirectTo: ''
